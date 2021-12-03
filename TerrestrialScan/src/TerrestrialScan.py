@@ -48,12 +48,12 @@ def setParamsFe(params):
 
 def terrestrialTransponderconvBandwidth_P(_bandWidth):
 	bandWidth = {
-		8000000 : eDVBFrontendParametersTerrestrial.Bandwidth_8MHz,
-		7000000 : eDVBFrontendParametersTerrestrial.Bandwidth_7MHz,
-		6000000 : eDVBFrontendParametersTerrestrial.Bandwidth_6MHz,
-		5000000 : eDVBFrontendParametersTerrestrial.Bandwidth_5MHz,
-		1712000 : eDVBFrontendParametersTerrestrial.Bandwidth_1_712MHz,
-		10000000 : eDVBFrontendParametersTerrestrial.Bandwidth_10MHz,
+		8000000: eDVBFrontendParametersTerrestrial.Bandwidth_8MHz,
+		7000000: eDVBFrontendParametersTerrestrial.Bandwidth_7MHz,
+		6000000: eDVBFrontendParametersTerrestrial.Bandwidth_6MHz,
+		5000000: eDVBFrontendParametersTerrestrial.Bandwidth_5MHz,
+		1712000: eDVBFrontendParametersTerrestrial.Bandwidth_1_712MHz,
+		10000000: eDVBFrontendParametersTerrestrial.Bandwidth_10MHz,
 	}.get(_bandWidth, eDVBFrontendParametersTerrestrial.Bandwidth_8MHz)
 	return bandWidth
 
