@@ -46,6 +46,7 @@ def setParamsFe(params):
 	params_fe.setDVBT(params)
 	return params_fe
 
+
 def terrestrialTransponderconvBandwidth_P(_bandWidth):
 	bandWidth = {
 		8000000: eDVBFrontendParametersTerrestrial.Bandwidth_8MHz,
@@ -56,6 +57,7 @@ def terrestrialTransponderconvBandwidth_P(_bandWidth):
 		10000000: eDVBFrontendParametersTerrestrial.Bandwidth_10MHz,
 	}.get(_bandWidth, eDVBFrontendParametersTerrestrial.Bandwidth_8MHz)
 	return bandWidth
+
 
 def channel2freq(channel, bandwidth=8): # Europe channels
 	if 4 < channel < 13: # Band III
