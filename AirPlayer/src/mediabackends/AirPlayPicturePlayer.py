@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 from Components.AVSwitch import AVSwitch
 from Components.ActionMap import ActionMap
 from Components.Pixmap import Pixmap
@@ -8,7 +8,7 @@ from Components.Sources.StaticText import StaticText
 from Components.config import config
 from Screens.Screen import Screen
 from enigma import getDesktop, ePicLoad, eBackgroundFileEraser
-from thread import start_new_thread
+from _thread import start_new_thread
 
 
 class AirPlayPicturePlayer(Screen):

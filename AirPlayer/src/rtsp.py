@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 import sys
 import re
 import types
@@ -11,7 +11,7 @@ from twisted.python import log, failure, reflect
 try:
     from twisted.protocols._c_urlarg import unquote
 except ImportError as e:
-    from urllib import unquote
+    from urllib.parse import unquote
 
 __version__ = '$Rev$'
 SERVER_PROTOCOL = 'RTSP/1.0'
@@ -117,7 +117,7 @@ class RTSPRequest(http.Request):
     port = None
 
     def delHeader(self, key):
-        if key.lower() in self.headers.keys():
+        if key.lower() in list(self.headers.keys()):
             del self.headers[key.lower()]
 
     def setResponseCode(self, code, message=None):
@@ -134,7 +134,7 @@ class RTSPRequest(http.Request):
             return
         first = '%s %s %s' % (self.method, self.path, SERVER_PROTOCOL)
         lines = []
-        for key, value in self.received_headers.items():
+        for key, value in list(self.received_headers.items()):
             lines.append('%s: %s' % (key, value))
 
         site = self.channel.site
@@ -176,7 +176,7 @@ class RTSPRequest(http.Request):
                 chunks = hostport.split(':')
                 self.host = chunks[0]
                 self.port = int(chunks[1])
-            self.postpath = map(unquote, rest.split('/'))
+            self.postpath = list(map(unquote, rest.split('/')))
             return True
 
     def _error(self, code, *lines):
@@ -193,7 +193,7 @@ class RTSPRequest(http.Request):
         body = self._error(INTERNAL_SERVER_ERROR, 'Request failed: %r' % failure)
         self.setHeader('Content-Length', str(len(body)))
         lines = []
-        for key, value in self.headers.items():
+        for key, value in list(self.headers.items()):
             lines.append('%s: %s' % (key, value))
 
         self.channel.site.logReply(self.code, self.code_message, lines, body)
@@ -202,12 +202,12 @@ class RTSPRequest(http.Request):
 
     def _renderCallback(self, result, resrc):
         body = result
-        if body is None or not isinstance(body, types.StringType):
+        if body is None or not isinstance(body, bytes):
             print('request did not return a string')
         else:
             self.setHeader('Content-Length', str(len(body)))
         lines = []
-        for key, value in self.headers.items():
+        for key, value in list(self.headers.items()):
             lines.append('%s: %s' % (key, value))
 
         if body:
@@ -263,7 +263,7 @@ class RTSPResource(resource.Resource):
          path,
          request.prepath,
          request.postpath))
-        print('children: %r' % self.children.keys())
+        print('children: %r' % list(self.children.keys()))
         res = resource.Resource.getChildWithDefault(self, path, request)
         print('RTSPResource.getChildWithDefault(%r, %s, <request>) returns %r' % (self, path, res))
         return res

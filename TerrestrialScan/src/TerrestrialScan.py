@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 # for localized messages
 from . import _
 
@@ -158,7 +158,7 @@ class TerrestrialScan(Screen):
 		if self.uhf_vhf == "australia":
 			bandwidth = 7
 			base_frequency = 177500000
-			for a in range(0, 8) + range(50, 74):
+			for a in list(range(0, 8)) + list(range(50, 74)):
 				freq = (base_frequency + (a * bandwidth * 1000000 + (2000000 if a > 8 else 0)))
 				self.scanTransponders.append({"frequency": freq, "system": eDVBFrontendParametersTerrestrial.System_DVB_T, "bandwidth": bandwidth})
 		if self.uhf_vhf == "xml":

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 # for localized messages
 from .__init__ import _
 from enigma import eTimer, getDesktop
@@ -18,7 +18,7 @@ from Components.Console import Console
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_GUISKIN, fileExists
 from Tools.LoadPixmap import LoadPixmap
 try:
-	import cPickle as pickle
+	import pickle as pickle
 except:
 	import pickle
 from os import path as os_path, stat, mkdir, remove
@@ -365,7 +365,7 @@ class NetworkBrowser(Screen):
 				self.network[x[2]] = []
 			self.network[x[2]].append((NetworkDescriptor(name=x[1], description=x[2]), x))
 
-		for x in self.network.keys():
+		for x in list(self.network.keys()):
 			hostentry = self.network[x][0][1]
 			name = hostentry[2] + " ( " + hostentry[1].strip() + " )"
 			if os_path.exists(resolveFilename(SCOPE_GUISKIN, "networkbrowser/host.png")):
@@ -391,8 +391,8 @@ class NetworkBrowser(Screen):
 			if x[2] not in self.network:
 				self.network[x[2]] = []
 			self.network[x[2]].append((NetworkDescriptor(name=x[1], description=x[2]), x))
-		self.network.keys().sort()
-		for x in self.network.keys():
+		list(self.network.keys()).sort()
+		for x in list(self.network.keys()):
 			if self.network[x][0][1][3] == '00:00:00:00:00:00':
 				self.device = 'unix'
 			else:
@@ -453,7 +453,7 @@ class NetworkBrowser(Screen):
 				newpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/i-smb.png"))
 
 		self.isMounted = False
-		for sharename, sharedata in self.mounts.items():
+		for sharename, sharedata in list(self.mounts.items()):
 			if sharedata['ip'] == sharehost:
 				if sharetype == 'nfsShare' and sharedata['mounttype'] == 'nfs':
 					sharedir = sharedir.replace('/', '')
@@ -569,7 +569,7 @@ class NetworkBrowser(Screen):
 				data['sharedir'] = selection[4]
 				data['options'] = "rw,nolock,tcp"
 
-				for sharename, sharedata in mounts.items():
+				for sharename, sharedata in list(mounts.items()):
 					if sharedata['ip'] == selection[2] and sharedata['sharedir'] in selection[4]:
 						data = sharedata
 						newmount = False
@@ -595,7 +595,7 @@ class NetworkBrowser(Screen):
 						data['password'] = self.hostdata['password']
 					except:
 						pass
-				for sharename, sharedata in mounts.items():
+				for sharename, sharedata in list(mounts.items()):
 					if sharedata['ip'] == selection[2].strip() and sharedata['sharedir'] in selection[3].strip():
 						data = sharedata
 						newmount = False

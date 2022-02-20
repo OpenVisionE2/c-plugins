@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 from twisted.python import failure
 from twisted.internet import reactor, defer
-import Queue
+import queue
 from threading import currentThread
 
 
 def doBlockingCallFromMainThread(f, *a, **kw):
-    queue = Queue.Queue()
+    queue = queue.Queue()
 
     def _callFromThread():
         result = defer.maybeDeferred(f, *a, **kw)
@@ -18,7 +18,7 @@ def doBlockingCallFromMainThread(f, *a, **kw):
     while True:
         try:
             result = queue.get(True, 30)
-        except Queue.Empty as qe:
+        except queue.Empty as qe:
             if True:
                 raise ValueError('Reactor no longer active, aborting.')
         else:

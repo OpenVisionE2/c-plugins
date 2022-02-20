@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 from twisted.web.http import datetimeToString
 from twisted.web.server import Request, Site, version, unquote
 
@@ -18,7 +18,7 @@ class WebSocketRequest(Request):
         self.setHeader('server', version)
         self.setHeader('date', datetimeToString())
         self.prepath = []
-        self.postpath = map(unquote, self.path[1:].split('/'))
+        self.postpath = list(map(unquote, self.path[1:].split('/')))
         self.renderWebSocket()
 
     def _checkClientHandshake(self):

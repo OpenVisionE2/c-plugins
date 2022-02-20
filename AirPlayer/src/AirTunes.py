@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 from .rtsp import RTSPSite, RTSPResource
 from twisted.internet import reactor
 import os
@@ -11,7 +11,7 @@ from Components.config import config
 from Tools import Notifications
 from Screens.MessageBox import MessageBox
 from enigma import eTimer
-from thread import start_new_thread
+from _thread import start_new_thread
 import time
 from .mediabackends.helper import blockingCallFromMainThread
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS

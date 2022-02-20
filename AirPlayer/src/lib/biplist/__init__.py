@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from collections import namedtuple
 try:
-	from cStringIO import StringIO
+	from io import StringIO
 except:
 	from io import StringIO
 import datetime
@@ -42,7 +42,7 @@ class NotBinaryPlistException(Exception):
 def readPlist(pathOrFile):
     didOpen = False
     result = None
-    if isinstance(pathOrFile, (str, unicode)):
+    if isinstance(pathOrFile, str):
         pathOrFile = open(pathOrFile)
         didOpen = True
     try:
@@ -64,7 +64,7 @@ def writePlist(rootObject, pathOrFile, binary=True):
         return plistlib.writePlist(rootObject, pathOrFile)
     else:
         didOpen = False
-        if isinstance(pathOrFile, (str, unicode)):
+        if isinstance(pathOrFile, str):
             pathOrFile = open(pathOrFile, 'w')
             didOpen = True
         writer = PlistWriter(pathOrFile)
@@ -380,7 +380,7 @@ class PlistWriter(object):
             return HashableWrapper(n)
         elif isinstance(root, dict):
             n = {}
-            for key, value in root.iteritems():
+            for key, value in root.items():
                 n[self.wrapRoot(key)] = self.wrapRoot(value)
 
             return HashableWrapper(n)
@@ -424,7 +424,7 @@ class PlistWriter(object):
         elif isinstance(obj, Uid):
             size = self.intSize(obj)
             self.incrementByteCount('uidBytes', incr=1 + size)
-        elif isinstance(obj, (int, int)):
+        elif isinstance(obj, int):
             size = self.intSize(obj)
             self.incrementByteCount('intBytes', incr=1 + size)
         elif isinstance(obj, float):
@@ -435,7 +435,7 @@ class PlistWriter(object):
         elif isinstance(obj, Data):
             size = proc_size(len(obj))
             self.incrementByteCount('dataBytes', incr=1 + size)
-        elif isinstance(obj, (str, unicode)):
+        elif isinstance(obj, str):
             size = proc_size(len(obj))
             self.incrementByteCount('stringBytes', incr=1 + size)
         elif isinstance(obj, HashableWrapper):
@@ -456,7 +456,7 @@ class PlistWriter(object):
             elif isinstance(obj, dict):
                 size = proc_size(len(obj))
                 self.incrementByteCount('dictBytes', incr=1 + size)
-                for key, value in obj.iteritems():
+                for key, value in obj.items():
                     check_key(key)
                     self.computeOffsets(key, asReference=True)
                     self.computeOffsets(value, asReference=True)
@@ -500,7 +500,7 @@ class PlistWriter(object):
             size = self.intSize(obj)
             output += pack('!B', 128 | size - 1)
             output += self.binaryInt(Uid)
-        elif isinstance(obj, (int, int)):
+        elif isinstance(obj, int):
             bytes = self.intSize(obj)
             root = math.log(bytes, 2)
             output += pack('!B', 16 | int(root))
@@ -516,8 +516,8 @@ class PlistWriter(object):
         elif isinstance(obj, Data):
             output += proc_variable_length(4, len(obj))
             output += obj
-        elif isinstance(obj, (str, unicode)):
-            if isinstance(obj, unicode):
+        elif isinstance(obj, str):
+            if isinstance(obj, str):
                 bytes = obj.encode('utf_16_be')
                 output += proc_variable_length(6, len(bytes) / 2)
                 output += bytes
@@ -546,7 +546,7 @@ class PlistWriter(object):
                 keys = []
                 values = []
                 objectsToWrite = []
-                for key, value in obj.iteritems():
+                for key, value in obj.items():
                     keys.append(key)
                     values.append(value)
 
@@ -603,9 +603,9 @@ class PlistWriter(object):
             return 1
         if obj <= 65535:
             return 2
-        if obj <= 4294967295L:
+        if obj <= 4294967295:
             return 4
-        if obj <= 9223372036854775807L:
+        if obj <= 9223372036854775807:
             return 8
         raise InvalidPlistException("Core Foundation can't handle integers with size greater than 8 bytes.")
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 # for localized messages
 from .__init__ import _
 from Screens.Screen import Screen
@@ -96,7 +96,7 @@ class AutoMountView(Screen):
 	def showMountsList(self):
 		self.list = []
 		self.mounts = iAutoMount.getMountsList()
-		for sharename in self.mounts.keys():
+		for sharename in list(self.mounts.keys()):
 			mountentry = iAutoMount.automounts[sharename]
 			self.list.append(self.buildMountViewItem(mountentry))
 		self["config"].setList(self.list)

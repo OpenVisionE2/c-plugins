@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 from Components.ActionMap import ActionMap
 from Components.ServiceEventTracker import ServiceEventTracker
 from Components.Slider import Slider
@@ -13,9 +13,9 @@ from Tools import Notifications
 from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS
 from ctypes import *
 from enigma import eServiceReference, iServiceInformation, eConsoleAppContainer, eTimer, eBackgroundFileEraser, iPlayableService
-from thread import start_new_thread
+from _thread import start_new_thread
 from time import sleep
-from urllib2 import Request, urlopen
+from urllib.request import Request, urlopen
 import os
 import subprocess
 from .helper import blockingCallFromMainThread

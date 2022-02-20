@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 import base64
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 
 class BaseMediaBackend(object):
@@ -18,8 +18,8 @@ class BaseMediaBackend(object):
             base64string = base64.encodestring('%s:%s' % (self._username, self._password))[:-1]
             req.add_header('Authorization', 'Basic %s' % base64string)
         try:
-            return urllib2.urlopen(req).read()
-        except urllib2.URLError as e:
+            return urllib.request.urlopen(req).read()
+        except urllib.error.URLError as e:
             clsname = self.__class__.__name__
             name = clsname.replace('MediaBackend', '')
             print("[AirPlayer] Couldn't connect to ", name, ' at ', self.host_string())

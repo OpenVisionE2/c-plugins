@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 from Components.config import ConfigSubsection, ConfigText, ConfigYesNo, config
 from Screens.MessageBox import MessageBox
 from .BaseMediaBackend import BaseMediaBackend
 from enigma import eServiceCenter, eDVBVolumecontrol, eServiceReference, eTimer
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from .AirPlayMoviePlayer import AirPlayMoviePlayer
 from .AirPlayMusicPlayer import AirPlayMusicPlayer
 from .AirPlayPicturePlayer import AirPlayPicturePlayer
@@ -154,7 +154,7 @@ class E2MediaBackend(BaseMediaBackend):
         self.setValidationMessage(None)
         if 'mov' in url.lower():
             print('[AirPlayer] mov found in url, fetching http headers')
-            page = urllib2.urlopen(url)
+            page = urllib.request.urlopen(url)
             info = page.info()
             print(info)
             print('[AirPlayer] Content-Type:', info['Content-Type'], 'Content-Length:', info['Content-Length'])

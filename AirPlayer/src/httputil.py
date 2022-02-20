@@ -23,7 +23,7 @@ class HTTPHeaders(dict):
         return self._as_list.get(norm_name, [])
 
     def get_all(self):
-        for name, list in self._as_list.iteritems():
+        for name, list in self._as_list.items():
             for value in list:
                 yield (name, value)
 
@@ -57,7 +57,7 @@ class HTTPHeaders(dict):
         return dict.get(self, HTTPHeaders._normalize_name(name), default)
 
     def update(self, *args, **kwargs):
-        for k, v in dict(*args, **kwargs).iteritems():
+        for k, v in dict(*args, **kwargs).items():
             self[k] = v
 
     _NORMALIZED_HEADER_RE = re.compile('^[A-Z0-9][a-z0-9]*(-[A-Z0-9][a-z0-9]*)*$')

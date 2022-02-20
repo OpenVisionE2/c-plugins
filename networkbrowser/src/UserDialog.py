@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
+
 # for localized messages
 from .__init__ import _
 from Screens.Screen import Screen
@@ -15,7 +15,7 @@ from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import ePoint
 try:
-	import cPickle as pickle
+	import pickle as pickle
 except:
 	import pickle
 from os import path as os_path, unlink, stat, mkdir
