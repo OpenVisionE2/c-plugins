@@ -18,7 +18,7 @@ from time import sleep
 from urllib2 import Request, urlopen
 import os
 import subprocess
-from helper import blockingCallFromMainThread
+from .helper import blockingCallFromMainThread
 import traceback
 from Components.Console import Console
 

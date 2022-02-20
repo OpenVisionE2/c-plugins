@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from rtsp import RTSPSite, RTSPResource
+from .rtsp import RTSPSite, RTSPResource
 from twisted.internet import reactor
 import os
 import base64
@@ -13,7 +13,7 @@ from Screens.MessageBox import MessageBox
 from enigma import eTimer
 from thread import start_new_thread
 import time
-from mediabackends.helper import blockingCallFromMainThread
+from .mediabackends.helper import blockingCallFromMainThread
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 HAIRTUNES_BINARY = '/usr/bin/hairtunes'

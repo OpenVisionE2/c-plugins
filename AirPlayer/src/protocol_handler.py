@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-import appletv
-import lib.biplist
+from . import appletv
+from . import lib.biplist
 from twisted.web.resource import Resource
 from twisted.internet import reactor
-from httputil import HTTPHeaders
+from .httputil import HTTPHeaders
 from Components.config import config
 from Components.Network import iNetwork
-from websocket import WebSocketSite, WebSocketHandler
+from .websocket import WebSocketSite, WebSocketHandler
 import os.path
 from Tools import Notifications
 from Screens.MessageBox import MessageBox

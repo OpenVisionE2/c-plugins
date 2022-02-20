@@ -7,9 +7,9 @@ from Screens.Screen import Screen
 from Components.ConfigList import ConfigListScreen
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
-from mediabackends.E2MediaBackend import E2MediaBackend
-from protocol_handler import AirplayProtocolHandler
-from AirTunes import AirtunesProtocolHandler
+from .mediabackends.E2MediaBackend import E2MediaBackend
+from .protocol_handler import AirplayProtocolHandler
+from .AirTunes import AirtunesProtocolHandler
 from Components.config import config
 from Components.config import ConfigSelection
 from Components.config import getConfigListEntry

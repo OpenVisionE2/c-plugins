@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # for localized messages
-from __init__ import _
+from .__init__ import _
 from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
@@ -10,7 +10,7 @@ from Components.Sources.List import List
 
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_GUISKIN, fileExists
-from UserDialog import UserDialog
+from .UserDialog import UserDialog
 from os import unlink, listdir, path as os_path
 
 

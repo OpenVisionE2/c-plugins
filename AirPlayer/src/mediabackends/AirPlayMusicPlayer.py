@@ -13,7 +13,7 @@ from enigma import ePoint, eServiceReference, getDesktop, ePicLoad, eTimer, eBac
 from thread import start_new_thread
 import os
 from ctypes import *
-from helper import blockingCallFromMainThread
+from .helper import blockingCallFromMainThread
 from Components.Console import Console
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 

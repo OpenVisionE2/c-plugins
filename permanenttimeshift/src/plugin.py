@@ -991,7 +991,7 @@ class InfoBar(InfoBarOrg):
 	def ptsCreateEITFile(self, filename):
 		if self.pts_curevent_eventid is not None:
 			try:
-				import eitsave
+				from . import eitsave
 				serviceref = ServiceReference(self.session.nav.getCurrentlyPlayingServiceReference()).ref.toString()
 				eitsave.SaveEIT(serviceref, filename + ".eit", self.pts_curevent_eventid, -1, -1)
 			except Exception as errormsg:

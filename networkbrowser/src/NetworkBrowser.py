@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 # for localized messages
-from __init__ import _
+from .__init__ import _
 from enigma import eTimer, getDesktop
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
@@ -28,11 +28,11 @@ from stat import ST_MTIME
 import subprocess
 
 import netscan
-import ipscan
-from MountManager import AutoMountManager
-from AutoMount import iAutoMount
-from MountEdit import AutoMountEdit
-from UserDialog import UserDialog
+from . import ipscan
+from .MountManager import AutoMountManager
+from .AutoMount import iAutoMount
+from .MountEdit import AutoMountEdit
+from .UserDialog import UserDialog
 
 
 def formatIp(ip):
