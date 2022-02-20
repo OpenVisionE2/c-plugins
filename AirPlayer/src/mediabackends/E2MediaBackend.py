@@ -5,7 +5,9 @@ from Components.config import ConfigSubsection, ConfigText, ConfigYesNo, config
 from Screens.MessageBox import MessageBox
 from .BaseMediaBackend import BaseMediaBackend
 from enigma import eServiceCenter, eDVBVolumecontrol, eServiceReference, eTimer
-import urllib.request, urllib.error, urllib.parse
+import urllib.request
+import urllib.error
+import urllib.parse
 from .AirPlayMoviePlayer import AirPlayMoviePlayer
 from .AirPlayMusicPlayer import AirPlayMusicPlayer
 from .AirPlayPicturePlayer import AirPlayPicturePlayer
