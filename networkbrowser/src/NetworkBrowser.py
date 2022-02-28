@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # for localized messages
+from __future__ import print_function
+from __future__ import absolute_import
 from .__init__ import _
 from enigma import eTimer, getDesktop
 from Screens.Screen import Screen
@@ -17,17 +19,14 @@ from Components.ConfigList import ConfigList, ConfigListScreen
 from Components.Console import Console
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_GUISKIN, fileExists
 from Tools.LoadPixmap import LoadPixmap
-try:
-	import pickle as pickle
-except:
-	import pickle
 from os import path as os_path, stat, mkdir, remove
 from time import time
 from stat import ST_MTIME
-
+import six
+from six.moves.cPickle import dump, load
 import subprocess
 
-import netscan
+from . import netscan
 from . import ipscan
 from .MountManager import AutoMountManager
 from .AutoMount import iAutoMount
@@ -48,8 +47,8 @@ def write_cache(cache_file, cache_data):
 			mkdir(os_path.dirname(cache_file))
 		except OSError:
 			print(os_path.dirname(cache_file), '[Networkbrowser] is a file')
-	fd = open(cache_file, 'w')
-	pickle.dump(cache_data, fd, -1)
+	fd = open(cache_file, 'wb')
+	dump(cache_data, fd, -1)
 	fd.close()
 
 
@@ -68,8 +67,8 @@ def valid_cache(cache_file, cache_ttl):
 
 def load_cache(cache_file):
 	#Does a cPickle load
-	fd = open(cache_file)
-	cache_data = pickle.load(fd)
+	fd = open(cache_file, 'rb')
+	cache_data = load(fd)
 	fd.close()
 	return cache_data
 
@@ -300,6 +299,7 @@ class NetworkBrowser(Screen):
 	def Stage1SettingsComplete(self, result, retval, extra_args):
 		import xml.dom.minidom
 
+		result = six.ensure_str(result)
 		dom = xml.dom.minidom.parseString(result)
 		scan_result = []
 		for dhost in dom.getElementsByTagName('host'):
@@ -343,10 +343,17 @@ class NetworkBrowser(Screen):
 				if len(x) == 6:
 					sharelist.append(x)
 		cmd = "/usr/bin/smbclient -m SMB3 -g -N -U Guest -L {0}".format(hostip).split()
-		if username != "" or password != "":
+		if username and password:
+
 			cmd = ["/usr/bin/smbclient", "-m SMB3", "-g", "-U", username, "-L", hostip, "\\\\IPC\\", password]
 		try:
-			p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+			if six.PY3:
+				p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE, text=True)
+			else:
+				p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+			if username and password:
+				p.stdin.write(password + '\n')
+				p.stdin.flush()
 			(out, err) = p.communicate()
 			for line in out.split('\n'):
 				item = line.split('|')
