@@ -110,9 +110,6 @@ class AutoMountView(Screen):
 		if entry["isMounted"] is True:
 			mode = 0
 
-
-
-
 			if fileExists(resolveFilename(SCOPE_GUISKIN, "networkbrowser/ok.png")):
 				isMountedpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_GUISKIN, "networkbrowser/ok.png"))
 			else:
