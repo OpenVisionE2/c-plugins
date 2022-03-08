@@ -17,7 +17,7 @@ import six
 XML_FSTAB = "/etc/enigma2/automounts.xml"
 
 
-def rm_rf(d): # only for removing the ipkg stuff from /media/hdd subdirs
+def rm_rf(d): # only for removing the opkg stuff from /media/hdd subdirs
 	try:
 		for path in (os.path.join(d, f) for f in os.listdir(d)):
 			if os.path.isdir(path):
