@@ -1,6 +1,4 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 #===============================================================================
 # NetworkBrowser and MountManager Plugin by acid-burn
 # netscan lib by Nix_niX
