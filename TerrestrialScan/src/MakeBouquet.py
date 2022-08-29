@@ -149,7 +149,7 @@ class MakeBouquet(Screen):
 			return
 
 		if self.rawchannel:
-			del(self.rawchannel)
+			del (self.rawchannel)
 
 		self.frontend = None
 		self.rawchannel = None
@@ -512,4 +512,4 @@ class MakeBouquet(Screen):
 	def __onClose(self):
 		if self.frontend:
 			self.frontend = None
-			del(self.rawchannel)
+			del (self.rawchannel)

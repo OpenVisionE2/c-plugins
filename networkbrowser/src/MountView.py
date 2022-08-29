@@ -131,7 +131,7 @@ class AutoMountView(Screen):
 				mounttypepng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_GUISKIN, "networkbrowser/i-smb.png"))
 			else:
 				mounttypepng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/i-smb.png"))
-		return((isMountedpng, sharename, IPdescription, DIRdescription, activepng, mounttypepng))
+		return ((isMountedpng, sharename, IPdescription, DIRdescription, activepng, mounttypepng))
 
 	def exit(self):
 		self.close()

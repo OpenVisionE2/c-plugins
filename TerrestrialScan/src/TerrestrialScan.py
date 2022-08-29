@@ -294,7 +294,7 @@ class TerrestrialScan(Screen):
 
 		current_slotid = -1
 		if self.rawchannel:
-			del(self.rawchannel)
+			del (self.rawchannel)
 
 		self.frontend = None
 		self.rawchannel = None
@@ -468,4 +468,4 @@ class TerrestrialScan(Screen):
 	def __onClose(self):
 		if self.frontend:
 			self.frontend = None
-			del(self.rawchannel)
+			del (self.rawchannel)
