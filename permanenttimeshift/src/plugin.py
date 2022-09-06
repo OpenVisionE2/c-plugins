@@ -91,19 +91,19 @@ config.plugins.pts.isRecording = NoSave(ConfigYesNo(default=False))
 class PTSTimeshiftState(Screen):
 	skin = """
 		<screen position="center,40" zPosition="2" size="420,70" backgroundColor="transpBlack" flags="wfNoBorder">
-			<widget name="state" position="10,3" size="80,27" font="Regular;20" halign="center" backgroundColor="transpBlack" />
-			<widget source="session.CurrentService" render="Label" position="95,5" size="120,27" font="Regular;20" halign="left" foregroundColor="white" backgroundColor="transpBlack">
+			<widget name="state" position="10,3" size="80,27" font="Regular;20" horizontalAlignment="center" backgroundColor="transpBlack" />
+			<widget source="session.CurrentService" render="Label" position="95,5" size="120,27" font="Regular;20" horizontalAlignment="left" foregroundColor="white" backgroundColor="transpBlack">
 				<convert type="ServicePosition">Position</convert>
 			</widget>
-			<widget source="session.CurrentService" render="Label" position="335,5" size="70,27" font="Regular;20" halign="left" foregroundColor="white" backgroundColor="transpBlack">
+			<widget source="session.CurrentService" render="Label" position="335,5" size="70,27" font="Regular;20" horizontalAlignment="left" foregroundColor="white" backgroundColor="transpBlack">
 				<convert type="ServicePosition">Length</convert>
 			</widget>
-			<widget name="PTSSeekPointer" position="8,30" zPosition="3" size="19,50" pixmap="~/timeline-now.png" alphatest="on" />
-			<ePixmap position="10,33" size="840,15" zPosition="1" pixmap="~/images/slider_back.png" alphatest="on"/>
+			<widget name="PTSSeekPointer" position="8,30" zPosition="3" size="19,50" pixmap="~/timeline-now.png" alphaTest="on" />
+			<ePixmap position="10,33" size="840,15" zPosition="1" pixmap="~/images/slider_back.png" alphaTest="on"/>
 				<widget source="session.CurrentService" render="Progress" position="10,33" size="390,15" zPosition="2" pixmap="~/images/slider.png" transparent="1">
 				<convert type="ServicePosition">Position</convert>
 			</widget>
-			<widget name="eventname" position="10,49" zPosition="4" size="420,20" font="Regular;18" halign="center" backgroundColor="transpBlack" />
+			<widget name="eventname" position="10,49" zPosition="4" size="420,20" font="Regular;18" horizontalAlignment="center" backgroundColor="transpBlack" />
 		</screen>"""
 
 	def __init__(self, session):
