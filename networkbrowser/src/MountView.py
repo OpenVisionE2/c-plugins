@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # for localized messages
 from .__init__ import _
 from Screens.Screen import Screen
@@ -94,7 +95,7 @@ class AutoMountView(Screen):
 	def showMountsList(self):
 		self.list = []
 		self.mounts = iAutoMount.getMountsList()
-		for sharename in self.mounts.keys():
+		for sharename in list(self.mounts.keys()):
 			mountentry = iAutoMount.automounts[sharename]
 			self.list.append(self.buildMountViewItem(mountentry))
 		self["config"].setList(self.list)
@@ -102,12 +103,17 @@ class AutoMountView(Screen):
 		self["config"].onSelectionChanged.append(self.selectionChanged)
 
 	def buildMountViewItem(self, entry):
+		mode = 2
 		if entry["isMounted"] is True:
+			mode = 0
+
 			if fileExists(resolveFilename(SCOPE_GUISKIN, "networkbrowser/ok.png")):
 				isMountedpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_GUISKIN, "networkbrowser/ok.png"))
 			else:
 				isMountedpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/ok.png"))
 		if entry["isMounted"] is False:
+			mode = 1
+
 			if fileExists(resolveFilename(SCOPE_GUISKIN, "networkbrowser/cancel.png")):
 				isMountedpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_GUISKIN, "networkbrowser/cancel.png"))
 			else:
@@ -131,7 +137,7 @@ class AutoMountView(Screen):
 				mounttypepng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_GUISKIN, "networkbrowser/i-smb.png"))
 			else:
 				mounttypepng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/i-smb.png"))
-		return ((isMountedpng, sharename, IPdescription, DIRdescription, activepng, mounttypepng))
+		return ((isMountedpng, sharename, IPdescription, DIRdescription, activepng, mounttypepng, mode))
 
 	def exit(self):
 		self.close()

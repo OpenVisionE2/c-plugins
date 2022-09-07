@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # for localized messages
 from . import _
 
@@ -503,7 +504,7 @@ class MisPlsLcnScan(Screen):
 			print("[service]", key, self.tmp_services_dict[key])
 
 	def dict_sorter(self, in_dict, sort_by):
-		sort_list = [(x[0], x[1][sort_by]) for x in in_dict.items()]
+		sort_list = [(x[0], x[1][sort_by]) for x in list(in_dict.items())]
 		return [x[0] for x in sorted(sort_list, key=lambda listItem: listItem[1])]
 
 	def readBouquetIndex(self):
@@ -535,7 +536,7 @@ class MisPlsLcnScan(Screen):
 		bouquet_list = []
 		bouquet_list.append("#NAME %s\n" % self.bouquetName)
 
-		numbers = range(1, 1001)
+		numbers = list(range(1, 1001))
 		for number in numbers:
 			if number in self.services_dict:
 				bouquet_list.append(self.bouquetServiceLine(self.services_dict[number]))

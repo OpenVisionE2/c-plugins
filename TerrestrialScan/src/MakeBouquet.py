@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # for localized messages
 from . import _
 
@@ -387,7 +388,7 @@ class MakeBouquet(Screen):
 
 	def createBouquet(self):
 		for tv_radio in ("tv", "radio"):
-			radio_services = [x for x in self.services_dict.values() if x["service_type"] in self.AUDIO_ALLOWED_TYPES]
+			radio_services = [x for x in list(self.services_dict.values()) if x["service_type"] in self.AUDIO_ALLOWED_TYPES]
 			if tv_radio == "radio" and (not radio_services or not config.plugins.TerrestrialScan.makeradiobouquet.value):
 				break
 			self.tv_radio = tv_radio
@@ -419,7 +420,7 @@ class MakeBouquet(Screen):
 
 	def iterateServicesBySNR(self, servicesDict):
 		# return a key list of services sorted by signal quality descending
-		sort_list = [(k, s["signalQuality"]) for k, s in servicesDict.items()]
+		sort_list = [(k, s["signalQuality"]) for k, s in list(servicesDict.items())]
 		return [x[0] for x in sorted(sort_list, key=lambda listItem: listItem[1], reverse=True)]
 
 	def readBouquetIndex(self):
@@ -454,7 +455,7 @@ class MakeBouquet(Screen):
 		bouquet_list = []
 		bouquet_list.append("#NAME %s\n" % self.bouquetName)
 
-		numbers = range(1, 1001)
+		numbers = list(range(1, 1001))
 		for number in numbers:
 			if number in self.services_dict and self.services_dict[number]["service_type"] in allowed_service_types:
 				bouquet_list.append(self.bouquetServiceLine(self.services_dict[number]))
@@ -498,7 +499,7 @@ class MakeBouquet(Screen):
 
 	def iterateUniqueTranspondersByFrequency(self):
 		# returns an iterator list for self.transponders_unique in frequency order ascending
-		sort_list = [(x[0], x[1]["frequency"]) for x in self.transponders_unique.items()]
+		sort_list = [(x[0], x[1]["frequency"]) for x in list(self.transponders_unique.items())]
 		return [x[0] for x in sorted(sort_list, key=lambda listItem: listItem[1])]
 
 	def showError(self, message):

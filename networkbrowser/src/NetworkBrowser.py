@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # for localized messages
 from .__init__ import _
 from enigma import eTimer, getDesktop
@@ -15,17 +16,13 @@ from Components.ConfigList import ConfigList, ConfigListScreen
 from Components.Console import Console
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_GUISKIN, fileExists
 from Tools.LoadPixmap import LoadPixmap
-try:
-	import cPickle as pickle
-except:
-	import pickle
 from os import path as os_path, stat, mkdir, remove
 from time import time
 from stat import ST_MTIME
-
+from six.moves.cPickle import dump, load
 import subprocess
 
-import netscan
+from . import netscan
 from . import ipscan
 from .MountManager import AutoMountManager
 from .AutoMount import iAutoMount
@@ -46,8 +43,8 @@ def write_cache(cache_file, cache_data):
 			mkdir(os_path.dirname(cache_file))
 		except OSError:
 			print(os_path.dirname(cache_file), '[Networkbrowser] is a file')
-	fd = open(cache_file, 'w')
-	pickle.dump(cache_data, fd, -1)
+	fd = open(cache_file, 'wb')
+	dump(cache_data, fd, -1)
 	fd.close()
 
 
@@ -66,8 +63,8 @@ def valid_cache(cache_file, cache_ttl):
 
 def load_cache(cache_file):
 	#Does a cPickle load
-	fd = open(cache_file)
-	cache_data = pickle.load(fd)
+	fd = open(cache_file, 'rb')
+	cache_data = load(fd)
 	fd.close()
 	return cache_data
 
@@ -297,7 +294,8 @@ class NetworkBrowser(Screen):
 
 	def Stage1SettingsComplete(self, result, retval, extra_args):
 		import xml.dom.minidom
-
+		from six import ensure_str
+		result = ensure_str(result)
 		dom = xml.dom.minidom.parseString(result)
 		scan_result = []
 		for dhost in dom.getElementsByTagName('host'):
@@ -341,10 +339,18 @@ class NetworkBrowser(Screen):
 				if len(x) == 6:
 					sharelist.append(x)
 		cmd = "/usr/bin/smbclient -m SMB3 -g -N -U Guest -L {0}".format(hostip).split()
-		if username != "" or password != "":
+		if username and password:
+
 			cmd = ["/usr/bin/smbclient", "-m SMB3", "-g", "-U", username, "-L", hostip, "\\\\IPC\\", password]
 		try:
-			p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+			from six import PY2
+			if PY2:
+				p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+			else:
+				p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, stdin=subprocess.PIPE, text=True)
+			if username and password:
+				p.stdin.write(password + '\n')
+				p.stdin.flush()
 			(out, err) = p.communicate()
 			for line in out.split('\n'):
 				item = line.split('|')
@@ -363,7 +369,7 @@ class NetworkBrowser(Screen):
 				self.network[x[2]] = []
 			self.network[x[2]].append((NetworkDescriptor(name=x[1], description=x[2]), x))
 
-		for x in self.network.keys():
+		for x in list(self.network.keys()):
 			hostentry = self.network[x][0][1]
 			name = hostentry[2] + " ( " + hostentry[1].strip() + " )"
 			if os_path.exists(resolveFilename(SCOPE_GUISKIN, "networkbrowser/host.png")):
@@ -389,8 +395,8 @@ class NetworkBrowser(Screen):
 			if x[2] not in self.network:
 				self.network[x[2]] = []
 			self.network[x[2]].append((NetworkDescriptor(name=x[1], description=x[2]), x))
-		self.network.keys().sort()
-		for x in self.network.keys():
+		list(self.network.keys()).sort()
+		for x in list(self.network.keys()):
 			if self.network[x][0][1][3] == '00:00:00:00:00:00':
 				self.device = 'unix'
 			else:
@@ -451,7 +457,7 @@ class NetworkBrowser(Screen):
 				newpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/i-smb.png"))
 
 		self.isMounted = False
-		for sharename, sharedata in self.mounts.items():
+		for sharename, sharedata in list(self.mounts.items()):
 			if sharedata['ip'] == sharehost:
 				if sharetype == 'nfsShare' and sharedata['mounttype'] == 'nfs':
 					sharedir = sharedir.replace('/', '')
@@ -567,7 +573,7 @@ class NetworkBrowser(Screen):
 				data['sharedir'] = selection[4]
 				data['options'] = "rw,nolock,tcp"
 
-				for sharename, sharedata in mounts.items():
+				for sharename, sharedata in list(mounts.items()):
 					if sharedata['ip'] == selection[2] and sharedata['sharedir'] in selection[4]:
 						data = sharedata
 						newmount = False
@@ -593,7 +599,7 @@ class NetworkBrowser(Screen):
 						data['password'] = self.hostdata['password']
 					except:
 						pass
-				for sharename, sharedata in mounts.items():
+				for sharename, sharedata in list(mounts.items()):
 					if sharedata['ip'] == selection[2].strip() and sharedata['sharedir'] in selection[3].strip():
 						data = sharedata
 						newmount = False

@@ -113,15 +113,15 @@ class AutoMountManager(Screen):
 	def keyOK(self, returnValue=None):
 		if returnValue == None:
 			returnValue = self["config"].getCurrent()[1]
-			if returnValue is "add":
+			if returnValue == "add":
 				self.addMount()
-			elif returnValue is "view":
+			elif returnValue == "view":
 				self.viewMounts()
-			elif returnValue is "user":
+			elif returnValue == "user":
 				self.userEdit()
-			elif returnValue is "hostname":
+			elif returnValue == "hostname":
 				self.hostEdit()
-			elif returnValue is "mountagain":
+			elif returnValue == "mountagain":
 				self.createSetup()
 
 	def addMount(self):
@@ -172,7 +172,7 @@ class AutoMountManager(Screen):
 
 config.networkbrowser = ConfigSubsection()
 config.networkbrowser.automountpoll = ConfigYesNo(default=False)
-config.networkbrowser.automountpolltimer = ConfigSelection(default=1, choices=[
+config.networkbrowser.automountpolltimer = ConfigSelection(default="1", choices=[
 	("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"), ("6", "6"), ("7", "7"), ("8", "8"), ("9", "9"), ("10", "10"),
 	("11", "11"), ("12", "12"), ("13", "13"), ("14", "14"), ("15", "15"), ("16", "16"), ("17", "17"), ("18", "18"), ("19", "19"), ("20", "20"),
 	("21", "21"), ("22", "22"), ("23", "23"), ("24", "24")])
@@ -213,7 +213,7 @@ class MountManagerMenu(Screen, ConfigListScreen):
 		if config.networkbrowser.automountpoll.value:
 			self.list.append(getConfigListEntry(_("Re-mount network shares every (in hours)"), config.networkbrowser.automountpolltimer))
 		self["config"].list = self.list
-		self["config"].setList(self.list)
+		self["config"].l.setList(self.list)
 
 	# for summary:
 	def changedEntry(self):

@@ -8,10 +8,11 @@ import sys
 import types
 import xml.dom.minidom
 import shlex
+from six import ensure_str
 
 try:
 	from multiprocessing import Process
-except ImportError as e:
+except ImportError:
 	# For pre 2.6 releases
 	from threading import Thread as Process
 
@@ -51,6 +52,8 @@ class PortScanner(object):
 		# wait until finished
 		# get output
 		(self._nmap_last_output, nmap_err) = p.communicate()
+		nmap_err = ensure_str(nmap_err)
+		self._nmap_last_output = ensure_str(self._nmap_last_output)
 
 		# If there was something on stderr, there was a problem so abort...
 		if len(nmap_err) > 0:

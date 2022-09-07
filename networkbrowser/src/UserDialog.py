@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # for localized messages
 from .__init__ import _
 from Screens.Screen import Screen
@@ -12,13 +13,11 @@ from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import ePoint
-try:
-	import cPickle as pickle
-except:
-	import pickle
 from os import path as os_path, unlink, stat, mkdir
 from time import time
 from stat import ST_MTIME
+
+from six.moves.cPickle import dump, load
 
 
 def write_cache(cache_file, cache_data):
@@ -28,8 +27,8 @@ def write_cache(cache_file, cache_data):
 			mkdir(os_path.dirname(cache_file))
 		except OSError:
 			print(os_path.dirname(cache_file), 'is a file')
-	fd = open(cache_file, 'w')
-	pickle.dump(cache_data, fd, -1)
+	fd = open(cache_file, 'wb')
+	dump(cache_data, fd, -1)
 	fd.close()
 
 
@@ -48,8 +47,8 @@ def valid_cache(cache_file, cache_ttl):
 
 def load_cache(cache_file):
 	#Does a cPickle load
-	fd = open(cache_file)
-	cache_data = pickle.load(fd)
+	fd = open(cache_file, 'rb')
+	cache_data = load(fd)
 	fd.close()
 	return cache_data
 
