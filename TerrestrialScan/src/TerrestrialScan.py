@@ -205,7 +205,7 @@ class TerrestrialScan(Screen):
 			self.system = self.scanTransponders[self.index]["system"]
 			self.bandwidth = self.scanTransponders[self.index]["bandwidth"]
 			self.frequency = self.scanTransponders[self.index]["frequency"]
-			channelNumber = getChannelNumber(self.frequency, self.uhf_vhf == "xml" and ("australia" if self.country == "AUS"  else "uhf") or self.uhf_vhf)
+			channelNumber = getChannelNumber(self.frequency, self.uhf_vhf == "xml" and ("australia" if self.country == "AUS" else "uhf") or self.uhf_vhf)
 			self.channelNumberText = (_("(ch %s)") % channelNumber) if channelNumber else ""
 			print("[TerrestrialScan][Search] Scan frequency %d %s" % (self.frequency, self.channelNumberText))
 			print("[TerrestrialScan][Search] Scan system %d" % self.system)
