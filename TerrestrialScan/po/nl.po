@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2-oe-alliance-plugins 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 07:39+0000\n"
+"POT-Creation-Date: 2023-06-03 11:33+0330\n"
 "PO-Revision-Date: 2020-12-09 14:55+0100\n"
 "Last-Translator: Rob van der Does <RobvanderDoes@Gmail.com>\n"
 "Language-Team: none\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#, python-format
+msgid "(ch %s)"
+msgstr ""
 
 msgid "All"
 msgstr "Alle"
@@ -83,13 +87,17 @@ msgstr "%d unieke transponders gevonden"
 msgid "From XML"
 msgstr "Van XML"
 
+msgid "If you know for sure there are no T2 multiplexes in your area select yes. This will speed up scan time."
+msgstr ""
+
 msgid "If you select \"yes\" all stored terrestrial channels will be deleted before starting the current search."
 msgstr "Als u dit kiest, worden alle opgeslagen terristische kanalen verwijderd voordat het zoeken begint."
 
 msgid "If you select \"yes\" and LCNs are found in the NIT, the scan will create a bouquet of terrestrial channels in LCN order and add it to the bouquet list."
 msgstr "Als u \"Ja\" kiest en er LCN's gevonden worden in de NIT, zal de scan een boeket creëren van de kanalen in de volgorde van de NIT en dat toevoegen aan de bestaande boeketten."
 
-msgid "If you select \"yes\" and radio services are fond these will be place in a separate bouquet. Otherwise TV and radio services will be placed in a combined bouquet."
+#, fuzzy
+msgid "If you select \"yes\" and radio services are found these will be placed in a separate bouquet. Otherwise TV and radio services will be placed in a combined bouquet."
 msgstr "Als u dit kiest zullen gevonden radiokanalen in een apart boeket geplaatst worden. Anders worden TV- en radiokanalen in hetzelfde boeket geplaatst."
 
 msgid "If you select \"yes\" the scan will only save channels that are not encrypted; \"no\" will find encrypted and non-encrypted channels."
@@ -128,8 +136,8 @@ msgstr "Alleen vrije kanalen"
 msgid "Period of time to wait for the tuner to stabalise before taking a signal quality reading. 2 seconds is good for most hardware but some may require longer."
 msgstr "Een tijdsbestek van 2 sec is voor de meeste tuners voldoende om goed op het signaal af te stemmen, maar sommige apparatuur heeft meer tijd nodig."
 
-#, python-format
-msgid "Reading %s MHz (ch %s)"
+#, fuzzy, python-format
+msgid "Reading %s MHz %s"
 msgstr "Leest %s MHz (kan. %s)"
 
 #, python-format
@@ -175,8 +183,12 @@ msgstr "Kies uw gebied. Indien niet beschikbaar verandert u 'Land' in 'alle' en 
 msgid "Selected tuner is not cofigured"
 msgstr "De gekozen tuner is niet geconfigureerd"
 
-msgid "Signal quality stabisation time (secs)"
+#, fuzzy
+msgid "Signal quality stabilisation time (secs)"
 msgstr "Signaalkwaliteitstabiliseringstijd (sec)"
+
+msgid "Skip T2"
+msgstr ""
 
 msgid "Starting scanner"
 msgstr "Start scanner"
@@ -204,9 +216,9 @@ msgstr "Tuner"
 msgid "Tuning %s MHz"
 msgstr "Tunet %s MHz"
 
-#, python-format
-msgid "Tuning %s MHz (ch %s)"
-msgstr "Tuning %s MHz (kan. %s)"
+#, fuzzy, python-format
+msgid "Tuning %s MHz %s"
+msgstr "Tunet %s MHz"
 
 msgid "UHF Europe"
 msgstr "UHF Europa"
