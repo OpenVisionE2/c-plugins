@@ -527,9 +527,9 @@ class NetworkBrowser(Screen):
 			return
 
 		selectedhost = sel[0][2]
-		selectedhostname = sel[0][1]
+		selectedhostname = sel[0][1].strip()
 
-		self.hostcache_file = '/etc/enigma2/' + selectedhostname.strip() + '.cache' #Path to cache directory
+		self.hostcache_file = '/etc/enigma2/' + selectedhostname + '.cache' #Path to cache directory
 		if os_path.exists(self.hostcache_file):
 			try:
 				self.hostdata = load_cache(self.hostcache_file)
@@ -543,9 +543,9 @@ class NetworkBrowser(Screen):
 	def passwordQuestion(self, ret=False):
 		sel = self["list"].getCurrent()
 		selectedhost = sel[0][2]
-		selectedhostname = sel[0][1]
+		selectedhostname = sel[0][1].strip()
 		if (ret == True):
-			self.session.openWithCallback(self.UserDialogClosed, UserDialog, self.skin_path, selectedhostname.strip())
+			self.session.openWithCallback(self.UserDialogClosed, UserDialog, self.skin_path, selectedhostname)
 		else:
 			if sel[0][0] == 'host': # host entry selected
 				if selectedhost in self.expanded:
